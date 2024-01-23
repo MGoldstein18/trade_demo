@@ -105,195 +105,190 @@ const Home = () => {
     setReceiveSelected(tempPaySelected);
   };
   return (
-    <Box height='100vh' bgColor={'#131126'}>
-      <Grid
-        templateAreas={`"empty empty"
-                  "sideEmpty heading"
-                  "sideEmpty trade"`}
-        gridTemplateRows={'1fr 2fr 6fr'}
-        gridTemplateColumns={'1fr 6fr 1fr'}
-        gap={'50'}
-      >
-        <GridItem area='empty'></GridItem>
-        <GridItem area='sideEmpty'></GridItem>
-        <GridItem area='heading'>
-          <Heading textAlign={'start'} fontSize='96px' color={'#ffffff'}>
-            Trade
-          </Heading>
-        </GridItem>
-        <GridItem area='trade'>
-          <Box>
-            <CurrencyBox>
-              <PayAndAvailable
-                pay='Pay'
-                amount={payBalance}
-                currency={paySelected}
+    <Grid
+      height={'100vh'}
+      bgColor={'#131126'}
+      templateRows={'1fr 2fr 6fr'}
+      templateColumns={'1fr 6fr 1fr'}
+      gap={'50'}
+    >
+      <GridItem rowStart={2} rowSpan={1} colStart={2} colSpan={1}>
+        <Heading textAlign={'start'} fontSize='96px' color={'#ffffff'}>
+          Trade
+        </Heading>
+      </GridItem>
+      <GridItem rowStart={3} rowSpan={1} colStart={2} colSpan={1}>
+        <Box>
+          <CurrencyBox>
+            <PayAndAvailable
+              pay='Pay'
+              amount={payBalance}
+              currency={paySelected}
+            />
+            <Spacer />
+            <HStack>
+              <Input
+                variant='unstyled'
+                fontWeight={'bold'}
+                placeholder='0'
+                border={'none'}
+                maxWidth={'-webkit-fit-content'}
+                fontSize={'48px'}
+                value={pay}
+                onChange={(e) => setPay(e.target.value)}
+                color='#7f86ac'
               />
               <Spacer />
               <HStack>
-                <Input
-                  variant='unstyled'
-                  fontWeight={'bold'}
-                  placeholder='0'
-                  border={'none'}
-                  maxWidth={'-webkit-fit-content'}
-                  fontSize={'48px'}
-                  value={pay}
-                  onChange={(e) => setPay(e.target.value)}
-                  color='#7f86ac'
-                />
-                <Spacer />
-                <HStack>
-                  <Button
-                    width={'150px'}
-                    _hover={{ backgroundColor: '#40407c' }}
-                    size={'lg'}
-                    padding={5}
-                    color='#ffffff'
-                    bgColor={paySelected === 'USDC' ? '#40407c' : '#1a1b30'}
-                    border={'1px #343361 solid'}
-                    onClick={() => onPaySelectedChange('USDC')}
-                  >
-                    <HStack>
-                      <Image width={'7'} src='/USDC logo.svg' alt='usdc logo' />
-                      <Spacer />
-                      <Text>USDC</Text>
-                    </HStack>
-                  </Button>
-                  <Button
-                    width={'150px'}
-                    onClick={() => onPaySelectedChange('USDT')}
-                    bgColor={paySelected === 'USDT' ? '#40407c' : '#1a1b30'}
-                    _hover={{ backgroundColor: '#40407c' }}
-                    size={'lg'}
-                    padding={5}
-                    color='#ffffff'
-                    border={'1px #343361 solid'}
-                  >
-                    <HStack>
-                      <Image width={'7'} src='/tether.svg' alt='usdc logo' />
-                      <Spacer />
-                      <Text>Tether</Text>
-                    </HStack>
-                  </Button>
-                  <Button
-                    width={'150px'}
-                    size={'lg'}
-                    padding={5}
-                    color='#ffffff'
-                    onClick={() => onPaySelectedChange('DAI')}
-                    bgColor={paySelected === 'DAI' ? '#40407c' : '#1a1b30'}
-                    _hover={{ backgroundColor: '#40407c' }}
-                    border={'1px #343361 solid'}
-                  >
-                    <HStack>
-                      <Image width={'7'} src='/dai.svg' alt='usdc logo' />
-                      <Spacer />
-                      <Text>Dai</Text>
-                    </HStack>
-                  </Button>
-                </HStack>
+                <Button
+                  width={'150px'}
+                  _hover={{ backgroundColor: '#40407c' }}
+                  size={'lg'}
+                  padding={5}
+                  color='#ffffff'
+                  bgColor={paySelected === 'USDC' ? '#40407c' : '#1a1b30'}
+                  border={'1px #343361 solid'}
+                  onClick={() => onPaySelectedChange('USDC')}
+                >
+                  <HStack>
+                    <Image width={'7'} src='/USDC logo.svg' alt='usdc logo' />
+                    <Spacer />
+                    <Text>USDC</Text>
+                  </HStack>
+                </Button>
+                <Button
+                  width={'150px'}
+                  onClick={() => onPaySelectedChange('USDT')}
+                  bgColor={paySelected === 'USDT' ? '#40407c' : '#1a1b30'}
+                  _hover={{ backgroundColor: '#40407c' }}
+                  size={'lg'}
+                  padding={5}
+                  color='#ffffff'
+                  border={'1px #343361 solid'}
+                >
+                  <HStack>
+                    <Image width={'7'} src='/tether.svg' alt='usdc logo' />
+                    <Spacer />
+                    <Text>Tether</Text>
+                  </HStack>
+                </Button>
+                <Button
+                  width={'150px'}
+                  size={'lg'}
+                  padding={5}
+                  color='#ffffff'
+                  onClick={() => onPaySelectedChange('DAI')}
+                  bgColor={paySelected === 'DAI' ? '#40407c' : '#1a1b30'}
+                  _hover={{ backgroundColor: '#40407c' }}
+                  border={'1px #343361 solid'}
+                >
+                  <HStack>
+                    <Image width={'7'} src='/dai.svg' alt='usdc logo' />
+                    <Spacer />
+                    <Text>Dai</Text>
+                  </HStack>
+                </Button>
               </HStack>
-            </CurrencyBox>
-            <VStack>
-              <IconButton
-                onClick={onSwitch}
-                size={'lg'}
-                m={'-15'}
-                zIndex={10}
-                position={'relative'}
-                _hover={{ backgroundColor: '#131126' }}
-                background={'#40407c'}
-                aria-label='Switch'
-                icon={<SwitchIconComponent />}
-              />
-            </VStack>
-            <CurrencyBox>
-              <PayAndAvailable
-                pay='Receive'
-                amount={receiveBalance}
-                currency={receiveSelected}
-              />
-              <HStack>
-                <Input
-                  variant='unstyled'
-                  fontWeight={'bold'}
-                  placeholder='0'
-                  border={'none'}
-                  maxWidth={'-webkit-fit-content'}
-                  fontSize={'48px'}
-                  value={receive}
-                  onChange={(e) => setReceive(e.target.value)}
-                  color='#7f86ac'
-                />
-                <Spacer />
-                <HStack>
-                  <Button
-                    width={'150px'}
-                    _hover={{ backgroundColor: '#40407c' }}
-                    size={'lg'}
-                    padding={5}
-                    color='#ffffff'
-                    bgColor={receiveSelected === 'USDC' ? '#40407c' : '#1a1b30'}
-                    border={'1px #343361 solid'}
-                    onClick={() => onReceiveSelectedChange('USDC')}
-                  >
-                    <HStack>
-                      <Image width={'7'} src='/USDC logo.svg' alt='usdc logo' />
-                      <Spacer />
-                      <Text>USDC</Text>
-                    </HStack>
-                  </Button>
-                  <Button
-                    width={'150px'}
-                    onClick={() => onReceiveSelectedChange('USDT')}
-                    bgColor={receiveSelected === 'USDT' ? '#40407c' : '#1a1b30'}
-                    _hover={{ backgroundColor: '#40407c' }}
-                    size={'lg'}
-                    padding={5}
-                    color='#ffffff'
-                    border={'1px #343361 solid'}
-                  >
-                    <HStack>
-                      <Image width={'7'} src='/tether.svg' alt='usdc logo' />
-                      <Spacer />
-                      <Text>Tether</Text>
-                    </HStack>
-                  </Button>
-                  <Button
-                    width={'150px'}
-                    size={'lg'}
-                    padding={5}
-                    color='#ffffff'
-                    onClick={() => onReceiveSelectedChange('DAI')}
-                    bgColor={receiveSelected === 'DAI' ? '#40407c' : '#1a1b30'}
-                    _hover={{ backgroundColor: '#40407c' }}
-                    border={'1px #343361 solid'}
-                  >
-                    <HStack>
-                      <Image width={'7'} src='/dai.svg' alt='usdc logo' />
-                      <Spacer />
-                      <Text>Dai</Text>
-                    </HStack>
-                  </Button>
-                </HStack>
-              </HStack>
-            </CurrencyBox>
-            <ConnectWallet
-              style={{
-                padding: '30',
-                fontSize: '24px',
-                borderRadius: '10',
-                marginTop: '30px',
-                width: '100%',
-                backgroundColor: '#2151ef',
-                color: '#FFF'
-              }}
+            </HStack>
+          </CurrencyBox>
+          <VStack>
+            <IconButton
+              onClick={onSwitch}
+              size={'lg'}
+              m={'-15'}
+              zIndex={10}
+              position={'relative'}
+              _hover={{ backgroundColor: '#131126' }}
+              background={'#40407c'}
+              aria-label='Switch'
+              icon={<SwitchIconComponent />}
             />
-          </Box>
-        </GridItem>
-      </Grid>
-    </Box>
+          </VStack>
+          <CurrencyBox>
+            <PayAndAvailable
+              pay='Receive'
+              amount={receiveBalance}
+              currency={receiveSelected}
+            />
+            <HStack>
+              <Input
+                variant='unstyled'
+                fontWeight={'bold'}
+                placeholder='0'
+                border={'none'}
+                maxWidth={'-webkit-fit-content'}
+                fontSize={'48px'}
+                value={receive}
+                onChange={(e) => setReceive(e.target.value)}
+                color='#7f86ac'
+              />
+              <Spacer />
+              <HStack>
+                <Button
+                  width={'150px'}
+                  _hover={{ backgroundColor: '#40407c' }}
+                  size={'lg'}
+                  padding={5}
+                  color='#ffffff'
+                  bgColor={receiveSelected === 'USDC' ? '#40407c' : '#1a1b30'}
+                  border={'1px #343361 solid'}
+                  onClick={() => onReceiveSelectedChange('USDC')}
+                >
+                  <HStack>
+                    <Image width={'7'} src='/USDC logo.svg' alt='usdc logo' />
+                    <Spacer />
+                    <Text>USDC</Text>
+                  </HStack>
+                </Button>
+                <Button
+                  width={'150px'}
+                  onClick={() => onReceiveSelectedChange('USDT')}
+                  bgColor={receiveSelected === 'USDT' ? '#40407c' : '#1a1b30'}
+                  _hover={{ backgroundColor: '#40407c' }}
+                  size={'lg'}
+                  padding={5}
+                  color='#ffffff'
+                  border={'1px #343361 solid'}
+                >
+                  <HStack>
+                    <Image width={'7'} src='/tether.svg' alt='usdc logo' />
+                    <Spacer />
+                    <Text>Tether</Text>
+                  </HStack>
+                </Button>
+                <Button
+                  width={'150px'}
+                  size={'lg'}
+                  padding={5}
+                  color='#ffffff'
+                  onClick={() => onReceiveSelectedChange('DAI')}
+                  bgColor={receiveSelected === 'DAI' ? '#40407c' : '#1a1b30'}
+                  _hover={{ backgroundColor: '#40407c' }}
+                  border={'1px #343361 solid'}
+                >
+                  <HStack>
+                    <Image width={'7'} src='/dai.svg' alt='usdc logo' />
+                    <Spacer />
+                    <Text>Dai</Text>
+                  </HStack>
+                </Button>
+              </HStack>
+            </HStack>
+          </CurrencyBox>
+          <ConnectWallet
+            style={{
+              padding: '30',
+              fontSize: '24px',
+              borderRadius: '10',
+              marginTop: '30px',
+              width: '100%',
+              backgroundColor: '#2151ef',
+              color: '#FFF'
+            }}
+          />
+        </Box>
+      </GridItem>
+    </Grid>
   );
 };
 
